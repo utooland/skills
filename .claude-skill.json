@@ -1,7 +1,7 @@
 {
-  "name": "your-skill-name",
+  "name": "utoo",
   "version": "1.0.0",
-  "package": "@antskill/your-skill-name",
+  "package": "@utoo/skills",
   "files": {
     "reference.md": "reference.md",
     "examples.md": "examples.md",

@@ -1,7 +1,7 @@
 {
-  "name": "@antskill/YOUR-SKILL-NAME",
+  "name": "@utoo/skills",
   "version": "1.0.0",
-  "description": "YOUR SKILL DESCRIPTION - Brief description of what this skill does",
+  "description": "utoo toolchain skills from ai",
   "main": "index.js",
   "scripts": {
     "postinstall": "node install-skill.js",
@@ -24,18 +24,14 @@
     "ai-assistant",
     "agent-skill",
     "claude",
-    "YOUR-KEYWORDS-HERE"
+    "utoo"
   ],
-  "author": "YOUR NAME <your.email@example.com>",
+  "author": "elrrrrrrr@gmail.com",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git"
+    "url": "https://github.com/utooland/skills.git"
   },
-  "bugs": {
-    "url": "https://github.com/YOUR-USERNAME/YOUR-REPO-NAME/issues"
-  },
-  "homepage": "https://github.com/YOUR-USERNAME/YOUR-REPO-NAME#readme",
   "engines": {
     "node": ">=14.0.0"
   }

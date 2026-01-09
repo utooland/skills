@@ -1,124 +1,143 @@
 ---
-name: your-skill-name
-description: A clear description of what this skill does and when to use it. Include specific keywords that users would naturally say. Use when [specific scenarios].
-allowed-tools: Read, Bash
+name: utoo
+description: npm 包管理工具，用来安装 npm 包、生成依赖树、执行前端项目命令等。当用户需要安装依赖、运行脚本、查看包信息或管理前端项目时使用此 skill。
+allowed-tools: Bash(utoo:*), Bash(ut:*), Bash(utx:*), Read, Glob
 ---
 
-# Your Skill Name
+# utoo - 统一前端工具链
 
-<!-- Replace this with a brief introduction to your skill -->
-A brief description of what this skill does and how it helps users.
+utoo 是一个高性能的 npm 包管理工具，提供依赖安装、脚本执行、包信息查看等功能。
 
-## Instructions
+## 别名
 
-<!--
-This section tells Claude HOW to use your skill.
-Be specific and provide step-by-step guidance.
--->
+- `utoo` / `ut` - 主命令
+- `utx` - 执行命令别名（等同于 `ut x`）
 
-When the user [describes the scenario when this skill should be used]:
+## 命令速查
 
-1. **First Step**: [What Claude should do first]
-   - [Additional details or substeps]
-   - [Use bash, read files, etc.]
+| 命令 | 简写 | 说明 |
+|------|------|------|
+| `utoo install` | `ut i` | 安装项目依赖 |
+| `utoo uninstall <pkg>` | `ut un` | 卸载指定依赖 |
+| `utoo run <script>` | `ut r` / `utoo <script>` | 运行 package.json 中的脚本 |
+| `utoo run` | `ut r` | 交互式选择 workspace 和脚本 |
+| `utoo list` | `ut ls` | 列出依赖树 |
+| `utoo view <pkg>` | `ut v` / `ut info` | 查看包信息 |
+| `utoo execute <pkg>` | `ut x` / `utx` | 执行本地或远程 npm 包命令 |
+| `utoo link` | `ut ln` | 链接本地包 |
+| `utoo deps` | `ut d` | 仅生成 package-lock.json |
+| `utoo update` | `ut u` | 删除 node_modules 并重新安装 |
+| `utoo clean` | `ut c` | 清理全局包缓存 |
+| `utoo rebuild` | `ut rb` | 重建脚本钩子 |
+| `utoo config` | `ut cfg` | 管理配置 |
 
-2. **Second Step**: [What Claude should do next]
-   - [How to process or analyze information]
-   - [What to look for]
+## 使用指南
 
-3. **Final Step**: [How to complete the task]
-   - [What output to provide]
-   - [How to format the response]
+### 运行脚本
 
-## Examples
+```bash
+# 快捷方式：直接运行 package.json 中的脚本
+utoo build
+utoo dev
+ut test
 
-<!--
-Show concrete examples of using this skill.
-This helps Claude understand the expected behavior.
--->
+# 交互式选择（适用于 monorepo）
+utoo run
+# → 会引导用户选择 workspace 和对应脚本
 
-### Example 1: [Scenario Name]
-
-**User asks**: "[Example user question]"
-
-**What the skill does**:
-1. [First action]
-2. [Second action]
-3. [Result]
-
-**Expected output**:
-```
-[Show example output]
-```
-
-### Example 2: [Another Scenario]
-
-**User asks**: "[Another example question]"
-
-**What the skill does**:
-1. [Actions...]
-2. [More actions...]
-
-## Best Practices
-
-<!-- List key guidelines for using this skill effectively -->
-
-- [Best practice 1]
-- [Best practice 2]
-- [Best practice 3]
-
-## Common Patterns
-
-<!-- Show common usage patterns or templates -->
-
-### Pattern 1: [Pattern Name]
-
-[Describe when to use this pattern]
-
-```
-[Example code or template]
+# 显式运行
+utoo run build
+ut r dev
 ```
 
-## Limitations
+### 安装依赖
 
-<!-- Be transparent about what this skill CANNOT do -->
+```bash
+# 安装所有依赖
+utoo install
 
-- [Limitation 1]
-- [Limitation 2]
-- [What to do instead]
+# 安装指定包
+utoo install lodash
 
-## Configuration
+# 安装开发依赖
+utoo install -D typescript
 
-<!-- If your skill is configurable, explain how -->
+# 安装并保存到 package.json
+utoo install react --save
+```
 
-You can customize this skill by editing `scripts/config.json` after installation.
+### 查看依赖
 
-Available options:
-- `option1`: [Description]
-- `option2`: [Description]
+```bash
+# 查看依赖树
+utoo list
 
-## Additional Resources
+# 查看指定深度
+utoo list --depth=1
 
-<!-- Link to detailed documentation using Progressive Disclosure -->
+# 查看包信息
+utoo view react
+```
 
-For more detailed information:
-- See [reference.md](reference.md) for complete API documentation
-- See [examples.md](examples.md) for more usage examples
+### 执行远程包
 
----
+```bash
+# 使用 utx 别名（推荐）
+utx create-react-app my-app
+utx vite
 
-<!--
-TIPS FOR WRITING EFFECTIVE SKILLS:
+# 或使用完整命令
+utoo execute create-react-app my-app
+ut x vite
+```
 
-1. DESCRIPTION is crucial - Include specific keywords users would say
-   ❌ Bad: "Helps with files"
-   ✅ Good: "Analyzes Python files for syntax errors. Use when checking Python code, debugging syntax, or validating .py files."
+## 常见任务
 
-2. Keep SKILL.md under 500 lines - Use reference.md for detailed docs
+1. **初始化项目**: 先检查是否有 package.json，然后运行 `utoo install`
+2. **添加新依赖**: 使用 `utoo install <package>`
+3. **运行开发服务器**: 使用 `utoo dev` 或 `ut dev`
+4. **构建项目**: 使用 `utoo build` 或 `ut build`
+5. **查看依赖关系**: 使用 `utoo list` 分析依赖树
+6. **Monorepo 操作**: 使用 `utoo run` 交互式选择 workspace 和脚本
 
-3. Be specific in instructions - Claude needs clear step-by-step guidance
+## 配置管理
 
-4. Show examples - Concrete examples are more helpful than abstract descriptions
+```bash
+# 设置镜像源
+utoo config set registry https://registry.npmmirror.com --global
 
-5. Test thoroughly - Install locally and verify Claude triggers it correctly
--->
+# 查看当前配置
+utoo config list
+```
+
+## 最佳实践
+
+### 镜像源选择
+
+根据网络环境选择合适的镜像源，使用 `--registry` 参数指定：
+
+```bash
+# 使用 npmmirror（国内推荐，速度快）
+utoo install --registry https://registry.npmmirror.com
+utoo install lodash --registry https://registry.npmmirror.com
+
+# 使用 npm 官方源（国外或需要最新包时）
+utoo install --registry https://registry.npmjs.org
+
+# 更新依赖时指定镜像源
+utoo update --registry https://registry.npmmirror.com
+```
+
+### 常用镜像源
+
+| 镜像源 | URL | 适用场景 |
+|--------|-----|----------|
+| npmmirror | `https://registry.npmmirror.com` | 国内用户，速度快 |
+| npm 官方 | `https://registry.npmjs.org` | 需要最新包，国外网络 |
+
+### 建议
+
+1. **国内用户**: 优先使用 npmmirror 镜像，安装速度更快
+2. **需要最新版本**: 如果 npmmirror 同步延迟，可临时切换到官方源
+3. **CI/CD 环境**: 建议在命令中显式指定 `--registry` 确保一致性
+
