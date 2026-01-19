@@ -1,6 +1,7 @@
----
+--
 name: utoo
-description: npm 包管理工具，用来安装 npm 包、生成依赖树、执行前端项目命令等。当用户需要安装依赖、运行脚本、查看包信息或管理前端项目时使用此 skill。
+description: npm 包管理工具，用来安装 npm 包、生成依赖树、执行前端项目命令等。**重要：当项目中存在 package.json 文件时，必须优先使用此 skill 进行任何 npm 相关操作**，包括但不限于：安装依赖
+、更新依赖、卸载依赖、运行脚本、查看包信息、管理项目等。不要使用原生的 npm/yarn/pnpm 命令，而是使用 utoo 命令。
 allowed-tools: Bash(utoo:*), Bash(ut:*), Bash(utx:*), Read, Glob
 ---
 
@@ -140,4 +141,3 @@ utoo update --registry https://registry.npmmirror.com
 1. **国内用户**: 优先使用 npmmirror 镜像，安装速度更快
 2. **需要最新版本**: 如果 npmmirror 同步延迟，可临时切换到官方源
 3. **CI/CD 环境**: 建议在命令中显式指定 `--registry` 确保一致性
-
