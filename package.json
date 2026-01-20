@@ -1,6 +1,6 @@
 {
   "name": "@utoo/skills",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "utoo toolchain skills from ai",
   "main": "index.js",
   "scripts": {
