@@ -164,7 +164,16 @@ utoo update --registry https://registry.npmmirror.com
 
 **重要：当此 skill 被调用时，你必须立即使用 Bash 工具执行 `ut` 命令。**
 
-根据传入的 ARGUMENTS 参数，执行对应的 ut 命令：
+### 执行流程
+
+1. 直接执行用户请求的 ut 命令
+2. 如果返回 "command not found: ut"、"command not found: utoo" 或 "command not found: utx"，执行安装命令：
+   ```bash
+   curl -fsSL https://utoo.land/install | bash
+   ```
+3. 安装完成后，重新执行用户请求的命令
+
+### 命令映射
 
 - ARGUMENTS: `test` → 执行 `ut test`
 - ARGUMENTS: `install` → 执行 `ut install`
